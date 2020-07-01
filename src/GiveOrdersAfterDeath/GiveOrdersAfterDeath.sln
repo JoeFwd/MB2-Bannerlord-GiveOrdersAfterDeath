@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiveOrdersAfterDeath", "GiveOrdersAfterDeath.csproj", "{B16FD168-A330-4C8E-A04A-7B2B7520D55D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageRelease", "..\PackageRelease\PackageRelease.csproj", "{E78294CF-8B88-4312-BA4C-B38961E2FCD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

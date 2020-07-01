@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <OutDir>../../bin/Win64_Shipping_Client</OutDir>
+        <OutputPath>../../bin/Win64_Shipping_Client</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\SubModule.xml">
+            <Link>SubModule.xml</Link>
+        </None>
+        <None Include="..\..\LICENCE">
+            <Link>LICENCE</Link>
+        </None>
+        <None Include="..\..\.gitignore">
+            <Link>.gitignore</Link>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="..\..\..\..\bin\Win64_Shipping_Client\TaleWorlds.*.dll" Exclude="..\..\..\..\bin\Win64_Shipping_Client\TaleWorlds.Starter.DotNetCore.dll">
+            <HintPath>%(Identity)</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="TaleWorlds.MountAndBlade.GauntletUI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\..\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="TaleWorlds.MountAndBlade.View, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\..\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Lib.Harmony" Version="2.0.1" PrivateAssets="All" />
+    </ItemGroup>
+    
+</Project>
