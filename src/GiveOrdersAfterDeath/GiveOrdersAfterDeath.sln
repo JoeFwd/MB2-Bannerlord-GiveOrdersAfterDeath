@@ -6,17 +6,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageRelease", "..\Packag
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|x64.ActiveCfg = Debug|x64
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Debug|x64.Build.0 = Debug|x64
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|x64.ActiveCfg = Release|x64
+		{B16FD168-A330-4C8E-A04A-7B2B7520D55D}.Release|x64.Build.0 = Release|x64
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|x64.ActiveCfg = Debug|x64
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Debug|x64.Build.0 = Debug|x64
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|x64.ActiveCfg = Release|x64
+		{E78294CF-8B88-4312-BA4C-B38961E2FCD2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <Platforms>x64</Platforms>
+        <Platform>x64</Platform>
         <OutDir>../../bin/Win64_Shipping_Client</OutDir>
         <OutputPath>../../bin/Win64_Shipping_Client</OutputPath>
     </PropertyGroup>

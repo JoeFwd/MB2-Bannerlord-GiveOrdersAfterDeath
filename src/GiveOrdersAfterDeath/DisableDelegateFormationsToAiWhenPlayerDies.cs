@@ -49,7 +49,7 @@ namespace GiveOrdersAfterDeath
                 {
                     GiveOrdersAfterDeathSubModule.Print($"opcode : {code.opcode} operand : {code.operand}");
                 }
-                
+
                 return codes.AsEnumerable();
             }
 
