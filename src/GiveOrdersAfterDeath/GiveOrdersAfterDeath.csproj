@@ -2,12 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <Configurations>Debug;Release;Release - e1.4.3;Debug - e1.4.3</Configurations>
         <Platforms>x64</Platforms>
         <Platform>x64</Platform>
         <OutDir>../../bin/Win64_Shipping_Client</OutDir>
         <OutputPath>../../bin/Win64_Shipping_Client</OutputPath>
     </PropertyGroup>
 
+    <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+        <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.EndsWith('e1.4.3'))">
+        <DefineConstants>$(DefineConstants);AFTER_E1_4_3</DefineConstants>
+    </PropertyGroup>
+    
     <ItemGroup>
         <None Include="..\..\SubModule.xml">
             <Link>SubModule.xml</Link>
