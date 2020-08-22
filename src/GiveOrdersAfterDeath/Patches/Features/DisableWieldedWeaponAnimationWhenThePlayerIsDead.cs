@@ -17,7 +17,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -26,6 +26,15 @@ namespace GiveOrdersAfterDeath
                 transpiler: new HarmonyMethod(AfterSetOrderTranspilerMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(AfterSetOrderMethodInfo, AfterSetOrderTranspilerMethodInfo);
+            Applied = false;
         }
 
         private static bool IsMoreThanOneSelectedFormationCheckCalled(List<CodeInstruction> instructions, int index)
@@ -68,11 +77,6 @@ namespace GiveOrdersAfterDeath
                 var branchToFinalReturn = codes[index + 5];
                 codes.InsertRange(index + 1, ReturnIfMainAgentIsDead(branchToFinalReturn));
                 
-                foreach (var code in codes)
-                {
-                    GiveOrdersAfterDeathSubModule.Print($"opcode : {code.opcode} operand : {code.operand}");
-                }
-
                 return codes.AsEnumerable();
             }
 

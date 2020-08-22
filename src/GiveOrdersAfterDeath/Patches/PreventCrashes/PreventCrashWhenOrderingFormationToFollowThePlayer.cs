@@ -19,7 +19,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -28,6 +28,15 @@ namespace GiveOrdersAfterDeath
                 prefix: new HarmonyMethod(SetOrderWithNonNullAgentMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(SetOrderWithAgentMethodInfo, SetOrderWithNonNullAgentMethodInfo);
+            Applied = false;
         }
 
         private static readonly MethodInfo OrderSubTypeGetter = typeof(OrderItemVM).GetMethod("get_OrderSubType", all);

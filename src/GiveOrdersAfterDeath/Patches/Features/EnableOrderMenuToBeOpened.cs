@@ -16,7 +16,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -26,6 +26,16 @@ namespace GiveOrdersAfterDeath
                 postfix: new HarmonyMethod(CheckCanBeOpenedPostfixMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(CheckCanBeOpenedMethodInfo, CheckCanBeOpenedPrefixMethodInfo);
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(CheckCanBeOpenedMethodInfo, CheckCanBeOpenedPostfixMethodInfo);
+            Applied = false;
         }
         
         private static void CheckCanBeOpenedPrefix(ref bool displayMessage)

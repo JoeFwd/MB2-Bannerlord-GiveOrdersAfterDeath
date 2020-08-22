@@ -4,7 +4,9 @@ namespace GiveOrdersAfterDeath
 {
     public interface IPatch
     { 
-        void Apply(Game game);
+        void Apply();
+        
+        void Reset();
         
         bool Applied { get; }
     }

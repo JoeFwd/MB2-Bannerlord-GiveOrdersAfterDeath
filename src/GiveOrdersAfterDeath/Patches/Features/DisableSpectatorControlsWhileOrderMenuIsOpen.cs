@@ -21,7 +21,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -33,6 +33,16 @@ namespace GiveOrdersAfterDeath
                 postfix: new HarmonyMethod(OnMissionTickPostfixMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(FindNextCameraAttachableAgentMethodInfo, FindNextCameraAttachableAgentPrefixMethodInfo);
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnMissionTickMethodInfo, OnMissionTickPostfixMethodInfo);
+            Applied = false;
         }
         
         private static bool DisableSpectatorControlsPrefix(MissionScreen __instance) {

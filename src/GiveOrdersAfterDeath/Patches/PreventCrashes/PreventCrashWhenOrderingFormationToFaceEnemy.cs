@@ -20,7 +20,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -29,6 +29,15 @@ namespace GiveOrdersAfterDeath
                 transpiler: new HarmonyMethod(ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnMissionScreenTickMethodInfo, ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo);
+            Applied = false;
         }
         
         private static bool IsMissionMainAgentTeamCalled(List<CodeInstruction> instructions, int index)

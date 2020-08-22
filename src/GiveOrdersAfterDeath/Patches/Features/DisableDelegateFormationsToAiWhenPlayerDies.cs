@@ -18,7 +18,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -27,6 +27,15 @@ namespace GiveOrdersAfterDeath
                 transpiler: new HarmonyMethod(OnAgentRemovedTranspilerMethodInfo));
 
             Applied = true;
+        }
+        
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnAgentRemovedMethodInfo, OnAgentRemovedTranspilerMethodInfo);
+            Applied = false;
         }
 
         private static bool IsDelegateToAICalled(List<CodeInstruction> instructions, int index)
@@ -44,11 +53,6 @@ namespace GiveOrdersAfterDeath
                     continue;
                 
                 codes.RemoveRange(index, 3);
-
-                foreach (var code in codes)
-                {
-                    GiveOrdersAfterDeathSubModule.Print($"opcode : {code.opcode} operand : {code.operand}");
-                }
 
                 return codes.AsEnumerable();
             }
