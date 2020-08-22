@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TaleWorlds.Core;
 
 namespace GiveOrdersAfterDeath
 {
@@ -40,24 +39,31 @@ namespace GiveOrdersAfterDeath
             }
         }
 
-        private static void ApplyPatches(Game game) {
-            foreach (var patch in Patches) {
+        private static void ApplyPatches()
+            => Patches.ForEach(patch =>
+            {
                 try {
-                    if (true)
-                        try {
-                            patch.Apply(game);
-                        }
-                        catch (Exception ex) {
-                            Error(ex, $"Error while applying patch: {patch.GetType().Name}");
-                        }
+                    patch.Apply();
+                    Print($"{(patch.Applied ? "Applied" : "Skipped")} Patch: {patch.GetType()}");
                 }
                 catch (Exception ex) {
-                    Error(ex, $"Error while checking if patch is applicable: {patch.GetType().Name}");
+                    Error(ex, $"Error while applying patch: {patch.GetType().Name}");
                 }
-                
-                Print($"{(patch.Applied ? "Applied" : "Skipped")} Patch: {patch.GetType()}");
-            }
-        }
+            });
         
+        private static void ResetPatches()
+            => Patches.ForEach(patch => 
+            {
+                try {
+                    patch.Reset();
+                }
+                catch (Exception ex) {
+                    Error(ex, $"Error while resetting patch: {patch.GetType().Name}");
+                }
+            });
+
+        private static bool ArePatchesApplied()
+            => !Patches.Exists(patch => !patch.Applied);
+
     }
 }
