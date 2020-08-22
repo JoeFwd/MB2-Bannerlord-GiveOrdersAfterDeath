@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#if !AFTER_E1_4_3
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
@@ -20,7 +22,7 @@ namespace GiveOrdersAfterDeath
         
         public bool Applied { get; private set; }
         
-        public void Apply(Game game)
+        public void Apply()
         {
             if (Applied)
                 return;
@@ -29,6 +31,15 @@ namespace GiveOrdersAfterDeath
                 transpiler: new HarmonyMethod(OpenToggleOrderTranspilerMethodInfo));
 
             Applied = true;
+        }
+
+        public void Reset()
+        {
+            if (!Applied)
+                return;
+
+            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OpenToggleOrderMethodInfo, OpenToggleOrderTranspilerMethodInfo);
+            Applied = false;
         }
         
         private static void SetIsCombatActionsDisabledIfAgentMainNotNull() {
@@ -52,3 +63,5 @@ namespace GiveOrdersAfterDeath
 
     }
 }
+
+#endif
