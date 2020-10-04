@@ -5,4 +5,6 @@ bin
 *.suo
 /*.zip
 .vs
-.idea/*
+.idea
+src/ReferenceAssemblyGenerator/*
+!/src/ReferenceAssemblyGenerator/.keep

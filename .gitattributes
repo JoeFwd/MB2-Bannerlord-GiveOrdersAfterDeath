@@ -1,0 +1,5 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+/src/GiveOrdersAfterDeath.Tests export-ignore
+/src/PackageRelease export-ignore
+/src/ReferenceAssemblyGenerator export-ignore
