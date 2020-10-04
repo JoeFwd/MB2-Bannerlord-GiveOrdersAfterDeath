@@ -2,11 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <Configurations>Debug;Release;Release - e1.4.3;Debug - e1.4.3</Configurations>
+        <Configurations>Debug;Release;Release - Post e1.4.3;Debug - Post e1.4.3;Debug - ref e1.4.3;Release - ref e1.4.3;Debug - ref e1.5.2;Release - ref e1.5.2;Debug - ref e1.5.3;Release - ref e1.5.3</Configurations>
         <Platforms>x64</Platforms>
         <Platform>x64</Platform>
-        <OutDir>../../bin/Win64_Shipping_Client</OutDir>
-        <OutputPath>../../bin/Win64_Shipping_Client</OutputPath>
+        <OutDir>..\..\bin\Win64_Shipping_Client</OutDir>
+        <OutputPath>..\..\bin\Win64_Shipping_Client</OutputPath>
+        <MnB2BannerlordRefDir>..\..\..\..</MnB2BannerlordRefDir>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
@@ -16,6 +17,59 @@
     <PropertyGroup Condition="$(Configuration.EndsWith('e1.4.3'))">
         <DefineConstants>$(DefineConstants);AFTER_E1_4_3</DefineConstants>
     </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.4.3'))">
+        <MnB2BannerlordRefVersion>e1.4.3</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.5.2'))">
+        <DefineConstants>$(DefineConstants);AFTER_E1_4_3</DefineConstants>
+        <MnB2BannerlordRefVersion>e1.5.2</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.5.3'))">
+        <DefineConstants>$(DefineConstants);AFTER_E1_4_3</DefineConstants>
+        <MnB2BannerlordRefVersion>e1.5.3</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(MnB2BannerlordRefVersion)'!=''">
+        <ReferenceAssemblyGeneratorDir Condition="'$(ReferenceAssemblyGeneratorDir)'==''">..\ReferenceAssemblyGenerator</ReferenceAssemblyGeneratorDir>
+        <MnB2BannerlordRefDir>$(ReferenceAssemblyGeneratorDir)\ref-$(MnB2BannerlordRefVersion)</MnB2BannerlordRefDir>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll">
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll">
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Lib.Harmony" Version="2.0.1" PrivateAssets="All" />
+    </ItemGroup>
     
     <ItemGroup>
         <None Include="..\..\SubModule.xml">
@@ -27,25 +81,6 @@
         <None Include="..\..\.gitignore">
             <Link>.gitignore</Link>
         </None>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <Reference Include="..\..\..\..\bin\Win64_Shipping_Client\TaleWorlds.*.dll" Exclude="..\..\..\..\bin\Win64_Shipping_Client\TaleWorlds.Starter.DotNetCore.dll">
-            <HintPath>%(Identity)</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="TaleWorlds.MountAndBlade.GauntletUI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\..\..\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="TaleWorlds.MountAndBlade.View, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <HintPath>..\..\..\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Lib.Harmony" Version="2.0.1" PrivateAssets="All" />
     </ItemGroup>
     
 </Project>
