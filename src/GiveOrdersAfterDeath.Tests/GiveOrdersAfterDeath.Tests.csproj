@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <Configurations>Debug;Release;Release - Post e1.4.3;Debug - Post e1.4.3;Debug - ref e1.4.3;Release - ref e1.4.3;Debug - ref e1.5.2;Release - ref e1.5.2;Debug - ref e1.5.3;Release - ref e1.5.3</Configurations>
+        <Platforms>x64</Platforms>
+        <Platform>x64</Platform>
+        <MnB2BannerlordRefDir>..\..\..\..</MnB2BannerlordRefDir>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+        <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.4.3'))">
+        <MnB2BannerlordRefVersion>e1.4.3</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.5.2'))">
+        <MnB2BannerlordRefVersion>e1.5.2</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="$(Configuration.EndsWith('ref e1.5.3'))">
+        <MnB2BannerlordRefVersion>e1.5.3</MnB2BannerlordRefVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition="'$(MnB2BannerlordRefVersion)'!=''">
+        <ReferenceAssemblyGeneratorDir Condition="'$(ReferenceAssemblyGeneratorDir)'==''">..\ReferenceAssemblyGenerator</ReferenceAssemblyGeneratorDir>
+        <MnB2BannerlordRefDir>$(ReferenceAssemblyGeneratorDir)\ref-$(MnB2BannerlordRefVersion)</MnB2BannerlordRefDir>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\System.Numerics.Vectors.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.GauntletUI.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll" />
+        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="nunit" Version="3.12.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Lib.Harmony" Version="2.0.1" PrivateAssets="All" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\GiveOrdersAfterDeath\GiveOrdersAfterDeath.csproj">
+            <!--<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Analyzer</OutputItemType>-->
+        </ProjectReference>
+    </ItemGroup>
+
+</Project>
