@@ -11,12 +11,12 @@ namespace GiveOrdersAfterDeath.Patches.Model
 
     protected Patch(Harmony harmony)
     {
-      this._harmony = harmony;
+      _harmony = harmony;
     }
 
     public void Apply()
     {
-      if (this.Applied)
+      if (Applied)
         return;
       foreach (PatchMethodInfo patchMethodInfo in this.GetPatchMethodsInfo())
       {
@@ -27,31 +27,35 @@ namespace GiveOrdersAfterDeath.Patches.Model
         switch (harmonyPatchType)
         {
           case HarmonyPatchType.Prefix:
-            this._harmony.Patch((MethodBase) patchedMethod, harmonyMethod, (HarmonyMethod) null, (HarmonyMethod) null, (HarmonyMethod) null);
+            _harmony.Patch(patchedMethod, prefix: harmonyMethod);
             break;
           case HarmonyPatchType.Postfix:
-            this._harmony.Patch((MethodBase) patchedMethod, (HarmonyMethod) null, harmonyMethod, (HarmonyMethod) null, (HarmonyMethod) null);
+            _harmony.Patch(patchedMethod, postfix: harmonyMethod);
             break;
           case HarmonyPatchType.Transpiler:
-            this._harmony.Patch((MethodBase) patchedMethod, (HarmonyMethod) null, (HarmonyMethod) null, harmonyMethod, (HarmonyMethod) null);
+            _harmony.Patch(patchedMethod, transpiler: harmonyMethod);
             break;
           case HarmonyPatchType.Finalizer:
-            this._harmony.Patch((MethodBase) patchedMethod, (HarmonyMethod) null, (HarmonyMethod) null, (HarmonyMethod) null, harmonyMethod);
+            _harmony.Patch(patchedMethod, finalizer: harmonyMethod);
             break;
           default:
-            throw new NotSupportedException(string.Format("{0} action is not supported when manually patching", (object) harmonyPatchType));
+            throw new NotSupportedException($"{harmonyPatchType} action is not supported when manually patching");
         }
       }
-      this.Applied = true;
+      Applied = true;
     }
 
     public void Reset()
     {
-      if (!this.Applied)
+      if (!Applied)
         return;
+
       foreach (PatchMethodInfo patchMethodInfo in this.GetPatchMethodsInfo())
-        this._harmony.Unpatch((MethodBase) patchMethodInfo.PatchedMethod, patchMethodInfo.PatchMethod);
-      this.Applied = false;
+      {
+        _harmony.Unpatch(patchMethodInfo.PatchedMethod, patchMethodInfo.PatchMethod);
+      }
+        
+      Applied = false;
     }
 
     public bool Applied { get; private set; }

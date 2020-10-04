@@ -23,7 +23,7 @@ namespace GiveOrdersAfterDeath
                         continue;
 
                     try {
-                        var patch = (IPatch) Activator.CreateInstance(type, true);
+                        var patch = (IPatch) Activator.CreateInstance(type, Harmony);
                         _patches.Add(patch);
                     }
                     catch (TargetInvocationException tie)
@@ -33,6 +33,7 @@ namespace GiveOrdersAfterDeath
                     catch (Exception ex) {
                         Error(ex, $"Failed to create instance of patch: {type.FullName}");
                     }
+                    Print($"Loaded {type.FullName} patch");
                 }
 
                 return _patches;
