@@ -1,12 +1,15 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using GiveOrdersAfterDeath.Patches.Model;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.ViewModelCollection;
 using static HarmonyLib.AccessTools;
-namespace GiveOrdersAfterDeath
+using static HarmonyLib.HarmonyPatchType; 
+
+namespace GiveOrdersAfterDeath.Patches.Features
 {
-    public class EnableOrderMenuToBeOpened : IPatch
+    public class EnableOrderMenuToBeOpened : Patch<EnableOrderMenuToBeOpened>
     {
         private static readonly MethodInfo CheckCanBeOpenedMethodInfo = typeof(MissionOrderVM).GetMethod("CheckCanBeOpened", all); // Enable order menu to be open
         
@@ -14,30 +17,14 @@ namespace GiveOrdersAfterDeath
         
         private static readonly MethodInfo CheckCanBeOpenedPostfixMethodInfo = typeof(EnableOrderMenuToBeOpened).GetMethod(nameof(CheckCanBeOpenedPostfix), all);
         
-        public bool Applied { get; private set; }
+        public EnableOrderMenuToBeOpened(Harmony harmony) : base(harmony) { }
         
-        public void Apply()
+        public override IEnumerable<PatchMethodInfo> GetPatchMethodsInfo()
         {
-            if (Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(CheckCanBeOpenedMethodInfo,
-                prefix: new HarmonyMethod(CheckCanBeOpenedPrefixMethodInfo),
-                postfix: new HarmonyMethod(CheckCanBeOpenedPostfixMethodInfo));
-
-            Applied = true;
+            yield return new PatchMethodInfo(CheckCanBeOpenedMethodInfo, Prefix, CheckCanBeOpenedPrefixMethodInfo);
+            yield return new PatchMethodInfo(CheckCanBeOpenedMethodInfo, Postfix, CheckCanBeOpenedPostfixMethodInfo);
         }
-        
-        public void Reset()
-        {
-            if (!Applied)
-                return;
 
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(CheckCanBeOpenedMethodInfo, CheckCanBeOpenedPrefixMethodInfo);
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(CheckCanBeOpenedMethodInfo, CheckCanBeOpenedPostfixMethodInfo);
-            Applied = false;
-        }
-        
         private static void CheckCanBeOpenedPrefix(ref bool displayMessage)
         {
             if (Agent.Main != null)

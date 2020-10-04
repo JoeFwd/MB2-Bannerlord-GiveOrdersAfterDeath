@@ -1,15 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using GiveOrdersAfterDeath.Patches.Model;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using TaleWorlds.MountAndBlade.View.Missions;
 using TaleWorlds.MountAndBlade.View.Screen;
 using TaleWorlds.MountAndBlade.ViewModelCollection.HUD;
 using static HarmonyLib.AccessTools;
+using static HarmonyLib.HarmonyPatchType;
 
-namespace GiveOrdersAfterDeath
+namespace GiveOrdersAfterDeath.Patches.Features
 {
-    public class DisableSpectatorControlsWhileOrderMenuIsOpen : IPatch
+    public class DisableSpectatorControlsWhileOrderMenuIsOpen : Patch<DisableSpectatorControlsWhileOrderMenuIsOpen>
     {
         private static readonly MethodInfo FindNextCameraAttachableAgentMethodInfo = typeof(MissionScreen).GetMethod("FindNextCameraAttachableAgent", all); // Disables Next Character when the order menu is opened.
         
@@ -19,32 +21,14 @@ namespace GiveOrdersAfterDeath
         
         private static readonly MethodInfo OnMissionTickPostfixMethodInfo = typeof(DisableSpectatorControlsWhileOrderMenuIsOpen).GetMethod(nameof(DisableNextCharacterSpectatorUiPostfix), all);
         
-        public bool Applied { get; private set; }
+        public DisableSpectatorControlsWhileOrderMenuIsOpen(Harmony harmony) : base(harmony) { }
         
-        public void Apply()
+        public override IEnumerable<PatchMethodInfo> GetPatchMethodsInfo()
         {
-            if (Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(FindNextCameraAttachableAgentMethodInfo,
-                new HarmonyMethod(FindNextCameraAttachableAgentPrefixMethodInfo));
-            
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(OnMissionTickMethodInfo,
-                postfix: new HarmonyMethod(OnMissionTickPostfixMethodInfo));
-
-            Applied = true;
+            yield return new PatchMethodInfo(FindNextCameraAttachableAgentMethodInfo, Prefix, FindNextCameraAttachableAgentPrefixMethodInfo);
+            yield return new PatchMethodInfo(OnMissionTickMethodInfo, Postfix, OnMissionTickPostfixMethodInfo);
         }
-        
-        public void Reset()
-        {
-            if (!Applied)
-                return;
 
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(FindNextCameraAttachableAgentMethodInfo, FindNextCameraAttachableAgentPrefixMethodInfo);
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnMissionTickMethodInfo, OnMissionTickPostfixMethodInfo);
-            Applied = false;
-        }
-        
         private static bool DisableSpectatorControlsPrefix(MissionScreen __instance) {
             if (__instance?.Mission == null)
                 return true;
@@ -61,6 +45,5 @@ namespace GiveOrdersAfterDeath
 
             ____dataSource.IsEnabled = false;
         }
-        
     }
 }

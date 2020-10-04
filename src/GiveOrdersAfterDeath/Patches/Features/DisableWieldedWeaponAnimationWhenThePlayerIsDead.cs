@@ -1,40 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using GiveOrdersAfterDeath.Patches.Model;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using static HarmonyLib.AccessTools;
 using static System.Reflection.Emit.OpCodes;
+using static HarmonyLib.HarmonyPatchType;
 
-namespace GiveOrdersAfterDeath
+namespace GiveOrdersAfterDeath.Patches.Features
 {
-    public class DisableWieldedWeaponAnimationWhenThePlayerIsDead : IPatch
+    public class DisableWieldedWeaponAnimationWhenThePlayerIsDead : Patch<DisableWieldedWeaponAnimationWhenThePlayerIsDead>
     {
         private static readonly MethodInfo AfterSetOrderMethodInfo = typeof(OrderController).GetMethod("AfterSetOrder", all);
         
         private static readonly MethodInfo AfterSetOrderTranspilerMethodInfo = typeof(DisableWieldedWeaponAnimationWhenThePlayerIsDead).GetMethod(nameof(DisableWieldedWeaponAnimationTranspiler), all);
         
-        public bool Applied { get; private set; }
+        public DisableWieldedWeaponAnimationWhenThePlayerIsDead(Harmony harmony) : base(harmony) { }
         
-        public void Apply()
+        public override IEnumerable<PatchMethodInfo> GetPatchMethodsInfo()
         {
-            if (Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(AfterSetOrderMethodInfo,
-                transpiler: new HarmonyMethod(AfterSetOrderTranspilerMethodInfo));
-
-            Applied = true;
-        }
-        
-        public void Reset()
-        {
-            if (!Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(AfterSetOrderMethodInfo, AfterSetOrderTranspilerMethodInfo);
-            Applied = false;
+            yield return new PatchMethodInfo(AfterSetOrderMethodInfo, Transpiler, AfterSetOrderTranspilerMethodInfo);
         }
 
         private static bool IsMoreThanOneSelectedFormationCheckCalled(List<CodeInstruction> instructions, int index)
@@ -82,7 +68,6 @@ namespace GiveOrdersAfterDeath
 
             return codes.AsEnumerable();
         }
-        
     }
     
 }

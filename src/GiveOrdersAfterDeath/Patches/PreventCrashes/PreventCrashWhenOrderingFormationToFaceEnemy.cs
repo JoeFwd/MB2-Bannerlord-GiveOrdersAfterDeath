@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using GiveOrdersAfterDeath.Patches.Model;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.GauntletUI;
 using static HarmonyLib.AccessTools;
 using static System.Reflection.Emit.OpCodes;
+using static HarmonyLib.HarmonyPatchType;
 
-namespace GiveOrdersAfterDeath
+namespace GiveOrdersAfterDeath.Patches.PreventCrashes
 {
-    public class PreventCrashWhenOrderingFormationToFaceEnemy : IPatch
+    public class PreventCrashWhenOrderingFormationToFaceEnemy : Patch<PreventCrashWhenOrderingFormationToFaceEnemy>
     {
         private static readonly MethodInfo OnMissionScreenTickMethodInfo = 
             typeof(MissionOrderGauntletUIHandler).GetMethod("OnMissionScreenTick", all); // Prevent crash when Agent.Main is called
@@ -18,26 +19,11 @@ namespace GiveOrdersAfterDeath
         private static readonly MethodInfo ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo = 
             typeof(PreventCrashWhenOrderingFormationToFaceEnemy).GetMethod(nameof(ReplaceMainAgentTeamByPlayerTeamTranspiler), all);
         
-        public bool Applied { get; private set; }
+        public PreventCrashWhenOrderingFormationToFaceEnemy(Harmony harmony) : base(harmony) { }
         
-        public void Apply()
+        public override IEnumerable<PatchMethodInfo> GetPatchMethodsInfo()
         {
-            if (Applied)
-                return;
-            
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(OnMissionScreenTickMethodInfo,
-                transpiler: new HarmonyMethod(ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo));
-
-            Applied = true;
-        }
-        
-        public void Reset()
-        {
-            if (!Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnMissionScreenTickMethodInfo, ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo);
-            Applied = false;
+            yield return new PatchMethodInfo(OnMissionScreenTickMethodInfo, Transpiler, ReplaceMainAgentTeamByPlayerTeamTranspilerMethodInfo);
         }
         
         private static bool IsMissionMainAgentTeamCalled(List<CodeInstruction> instructions, int index)

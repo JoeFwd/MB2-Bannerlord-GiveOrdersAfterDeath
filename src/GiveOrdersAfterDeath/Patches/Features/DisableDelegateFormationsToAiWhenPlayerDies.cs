@@ -1,41 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using GiveOrdersAfterDeath.Patches.Model;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using static HarmonyLib.AccessTools;
 using static System.Reflection.Emit.OpCodes;
+using static HarmonyLib.HarmonyPatchType;
 
-
-namespace GiveOrdersAfterDeath
+namespace GiveOrdersAfterDeath.Patches.Features
 {
-    public class DisableDelegateFormationsToAiWhenPlayerDies : IPatch
+    public class DisableDelegateFormationsToAiWhenPlayerDies : Patch<DisableDelegateFormationsToAiWhenPlayerDies>
     {
         private static readonly MethodInfo OnAgentRemovedMethodInfo = typeof(Mission).GetMethod("OnAgentRemoved", all);
         
         private static readonly MethodInfo OnAgentRemovedTranspilerMethodInfo = typeof(DisableDelegateFormationsToAiWhenPlayerDies).GetMethod(nameof(DisableDelegateFormationsToAiTranspiler), all);
         
-        public bool Applied { get; private set; }
+        public DisableDelegateFormationsToAiWhenPlayerDies(Harmony harmony) : base(harmony) { }
         
-        public void Apply()
+        public override IEnumerable<PatchMethodInfo> GetPatchMethodsInfo()
         {
-            if (Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Patch(OnAgentRemovedMethodInfo,
-                transpiler: new HarmonyMethod(OnAgentRemovedTranspilerMethodInfo));
-
-            Applied = true;
-        }
-        
-        public void Reset()
-        {
-            if (!Applied)
-                return;
-
-            GiveOrdersAfterDeathSubModule.Harmony.Unpatch(OnAgentRemovedMethodInfo, OnAgentRemovedTranspilerMethodInfo);
-            Applied = false;
+            yield return new PatchMethodInfo(OnAgentRemovedMethodInfo, Transpiler, OnAgentRemovedTranspilerMethodInfo);
         }
 
         private static bool IsDelegateToAICalled(List<CodeInstruction> instructions, int index)
@@ -59,7 +44,6 @@ namespace GiveOrdersAfterDeath
 
             return codes.AsEnumerable();
         }
-        
     }
     
 }
