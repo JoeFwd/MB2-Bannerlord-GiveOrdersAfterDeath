@@ -2,7 +2,7 @@
 <Module>
     <Name value="Give Orders After Death"/>
     <Id value="GiveOrdersAfterDeath"/>
-    <Version value="v1.0.0"/>
+    <Version value="v1.0.5"/>
     <SingleplayerModule value="true"/>
     <MultiplayerModule value="false"/>
     <DependedModules>
