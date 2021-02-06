@@ -31,17 +31,17 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\System.Numerics.Vectors.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.GauntletUI.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll" />
-        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/System.Numerics.Vectors.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.DotNet.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Engine.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Engine.GauntletUI.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Library.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Core.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.MountAndBlade.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Localization.dll" />
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.MountAndBlade.ViewModelCollection.dll" />
+        <Reference Include="$(MnB2BannerlordDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll" />
+        <Reference Include="$(MnB2BannerlordDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll" />
     </ItemGroup>
     
     <ItemGroup>

@@ -1,6 +1,5 @@
 ﻿using System;
 using HarmonyLib;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace GiveOrdersAfterDeath
@@ -24,23 +23,16 @@ namespace GiveOrdersAfterDeath
         private static bool IsSiegeBattle(Mission mission) 
             => mission.GetMissionBehaviour<SiegeMissionController>() != null;
 
-#if AFTER_E1_4_3
+
         private static bool IsCustomBattleGameType(Mission mission)
             => mission.GetMissionBehaviour<CustomBattleAgentLogic>() != null;
-#else
-        private static bool IsCustomBattleGameType()
-            => Game.Current.GameType == CustomGame.Current;
-#endif
         
         public override void OnMissionBehaviourInitialize(Mission mission)
         {
             base.OnMissionBehaviourInitialize(mission);
             
-#if AFTER_E1_4_3
+
             if (!mission.IsFieldBattle && !IsSiegeBattle(mission) && !IsCustomBattleGameType(mission))
-#else
-            if (!mission.IsFieldBattle && !IsSiegeBattle(mission) && !IsCustomBattleGameType())
-#endif
             {
                 if (ArePatchesApplied())
                 {

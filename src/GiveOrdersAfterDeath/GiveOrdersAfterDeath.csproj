@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Title>GiveOrdersAfterDeath</Title>
         <TargetFramework>net472</TargetFramework>
         <Configurations>Debug;Release;Release - Post e1.4.3;Debug - Post e1.4.3;Debug - ref e1.4.3;Release - ref e1.4.3;Debug - ref e1.5.2;Release - ref e1.5.2;Debug - ref e1.5.3;Release - ref e1.5.3</Configurations>
         <Platforms>x64</Platforms>
         <Platform>x64</Platform>
-        <OutDir>..\..\bin\Win64_Shipping_Client</OutDir>
-        <OutputPath>..\..\bin\Win64_Shipping_Client</OutputPath>
-        <MnB2BannerlordRefDir>..\..\..\..</MnB2BannerlordRefDir>
+        <OutDir>$(MnB2BannerlordDir)/Modules/$(Title)/bin/Win64_Shipping_Client</OutDir>
+        <OutputPath>$(MnB2BannerlordDir)/Modules/$(Title)/bin/Win64_Shipping_Client</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
@@ -34,35 +34,36 @@
 
     <PropertyGroup Condition="'$(MnB2BannerlordRefVersion)'!=''">
         <ReferenceAssemblyGeneratorDir Condition="'$(ReferenceAssemblyGeneratorDir)'==''">..\ReferenceAssemblyGenerator</ReferenceAssemblyGeneratorDir>
-        <MnB2BannerlordRefDir>$(ReferenceAssemblyGeneratorDir)\ref-$(MnB2BannerlordRefVersion)</MnB2BannerlordRefDir>
+        <MnB2BannerlordBinDir>$(ReferenceAssemblyGeneratorDir)\ref-$(MnB2BannerlordRefVersion)</MnB2BannerlordBinDir>
     </PropertyGroup>
     
     <ItemGroup>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.DotNet.dll">
+            
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Engine.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Engine.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Library.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Library.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Core.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Core.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.MountAndBlade.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.Localization.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll">
+        <Reference Include="$(MnB2BannerlordBinDir)/TaleWorlds.MountAndBlade.ViewModelCollection.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.GauntletUI.dll">
+        <Reference Include="$(MnB2BannerlordDir)/Modules/Native/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.GauntletUI.dll">
             <Private>False</Private>
         </Reference>
-        <Reference Include="$(MnB2BannerlordRefDir)\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll">
+        <Reference Include="$(MnB2BannerlordDir)/Modules/Native/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.View.dll">
             <Private>False</Private>
         </Reference>
     </ItemGroup>
