@@ -1,0 +1,42 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiveOrdersAfterDeath", "GiveOrdersAfterDeath\GiveOrdersAfterDeath.csproj", "{42BF383B-535B-4F26-BD78-9B64D82D0784}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiveOrdersAfterDeath.Tests", "GiveOrdersAfterDeath.Tests\GiveOrdersAfterDeath.Tests.csproj", "{E4E2D584-9210-4D32-8117-C3F88519CBC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12CCA2B5-A874-47B3-BB43-799275014D7B}"
+	ProjectSection(SolutionItems) = preProject
+		supported-game-versions.txt = supported-game-versions.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CB20C6C8-2857-4B1E-9C00-265893C094E3}"
+	ProjectSection(SolutionItems) = preProject
+		build\common.props = build\common.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Stable_Debug|x64 = Stable_Debug|x64
+		Stable_Release|x64 = Stable_Release|x64
+		Beta_Debug|x64 = Beta_Debug|x64
+		Beta_Release|x64 = Beta_Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Stable_Debug|x64.ActiveCfg = Stable_Debug|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Stable_Debug|x64.Build.0 = Stable_Debug|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Stable_Release|x64.ActiveCfg = Stable_Release|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Stable_Release|x64.Build.0 = Stable_Release|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Beta_Debug|x64.ActiveCfg = Beta_Debug|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Beta_Debug|x64.Build.0 = Beta_Debug|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Beta_Release|x64.ActiveCfg = Beta_Release|x64
+		{42BF383B-535B-4F26-BD78-9B64D82D0784}.Beta_Release|x64.Build.0 = Beta_Release|x64
+		
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Stable_Debug|x64.ActiveCfg = Stable_Debug|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Stable_Debug|x64.Build.0 = Stable_Debug|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Stable_Release|x64.ActiveCfg = Stable_Release|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Stable_Release|x64.Build.0 = Stable_Release|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Beta_Debug|x64.ActiveCfg = Beta_Debug|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Beta_Debug|x64.Build.0 = Beta_Debug|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Beta_Release|x64.ActiveCfg = Beta_Release|x64
+		{E4E2D584-9210-4D32-8117-C3F88519CBC8}.Beta_Release|x64.Build.0 = Beta_Release|x64
+	EndGlobalSection
+EndGlobal

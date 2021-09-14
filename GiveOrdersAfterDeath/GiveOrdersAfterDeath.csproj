@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <Platforms>x64</Platforms>
+        <LangVersion>9.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <Configurations>Stable_Debug;Stable_Release;Beta_Debug;Beta_Release</Configurations>
+        <RootNamespace>$(DisplayName)</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <ModuleName>GiveOrdersAfterDeath</ModuleName>
+        <DisplayName>Give Orders After Death</DisplayName>
+        <AssemblyName>$(ModuleName)</AssemblyName>
+    </PropertyGroup>
+
+    <!-- NuGet Packages -->
+    <ItemGroup>
+        <PackageReference Include="Bannerlord.BuildResources" Version="$(BuildResourcesVersion)">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Lib.Harmony" Version="$(HarmonyVersion)" IncludeAssets="compile" />
+
+        <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+        <PackageReference Include="Bannerlord.ReferenceAssemblies.Native.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+        <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+        <PackageReference Include="Bannerlord.ReferenceAssemblies.Sandbox.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+
+    </ItemGroup>
+
+    <!-- Extra Substitution Variables to Use in SubModule.xml -->
+    <ItemGroup>
+        <SubModuleOverrides Include="DisplayName">
+            <Regex>\$displayname\$</Regex>
+            <Replacement>$(DisplayName)</Replacement>
+        </SubModuleOverrides>
+        <SubModuleOverrides Include="GameVersionFlat">
+            <Regex>\$gameversionflat\$</Regex>
+            <Replacement>$(GameVersionFlat)</Replacement>
+        </SubModuleOverrides>
+    </ItemGroup>
+
+</Project>
