@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Build
+      run: |
+        archive_path=$(pwd)/Bannerlord/GiveOrdersAfterDeath.zip
+        generated_module_path=$(pwd)/Bannerlord/generated
+        mkdir -p $generated_module_path;
+        proj="GiveOrdersAfterDeath/GiveOrdersAfterDeath.csproj";
+        dotnet clean $proj --configuration Stable_Release;
+        dotnet build $proj --configuration Stable_Release -p:GameFolder="$generated_module_path";
+        cd $generated_module_path
+        zip -r $archive_path ./*;
+    - name: Upload to S3
+      run: |
+        archive_path=$(pwd)/Bannerlord/GiveOrdersAfterDeath.zip
+        aws s3 cp $archive_path s3://$BUCKET_NAME/stable/GiveOrdersAfterDeath.zip
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+        BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+
